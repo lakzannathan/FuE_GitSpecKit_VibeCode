@@ -1,0 +1,59 @@
+openapi: 3.0.3
+info:
+  title: Sentiment Analysis Service
+  version: 0.1.0
+paths:
+  /analyze:
+    post:
+      summary: Analyze text sentiment
+      description: Performs a simulated expensive sentiment analysis. Rate limited based on user tier.
+      parameters:
+        - in: header
+          name: x-api-key
+          schema:
+            type: string
+          required: false
+          description: API Key for Pro tier access.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                language:
+                  type: string
+                  default: de
+      responses:
+        "200":
+          description: Successful analysis
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text_length:
+                    type: integer
+                  sentiment_score:
+                    type: number
+                  processing_time_ms:
+                    type: number
+                  status:
+                    type: string
+        "429":
+          description: Too Many Requests
+          headers:
+            Retry-After:
+              description: Seconds until the rate limit window resets.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "Rate limit exceeded. Try again in 30 seconds."

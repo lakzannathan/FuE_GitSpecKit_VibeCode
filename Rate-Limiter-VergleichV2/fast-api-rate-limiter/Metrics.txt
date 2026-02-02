@@ -1,0 +1,4 @@
+# Alles in einem Rutsch sichern:
+radon cc ./src -a > Base_cc_results.txt   # Komplexität (Struktur)
+radon mi ./src -s > Base_mi_results.txt   # Wartbarkeit (Gesamtnote)
+radon hal ./src   > Base_hal_results.txt  # Aufwand (Lesbarkeit)

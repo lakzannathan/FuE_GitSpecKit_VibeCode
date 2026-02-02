@@ -1,0 +1,51 @@
+openapi: 3.0.0
+info:
+  title: HR Payroll API (Audit Logging Update)
+  version: 1.0.0
+paths:
+  /hr/employees/{employee_id}:
+    get:
+      summary: Get Employee Details
+      description: Retrieves employee details including sensitive info. **Triggers Audit Log (VIEW_DETAILS).**
+      parameters:
+        - name: employee_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+  /hr/payroll/calculate/{employee_id}:
+    post:
+      summary: Calculate Payroll
+      description: Triggers legacy payroll calculation. **Triggers Audit Log (CALC_PAYROLL).**
+      parameters:
+        - name: employee_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Calculation successful
+          content:
+            application/json:
+              schema:
+                type: object # Legacy result structure
+components:
+  schemas:
+    Employee:
+      type: object
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        # ... other fields ...

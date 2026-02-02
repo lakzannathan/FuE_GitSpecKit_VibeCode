@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  title: Inventory & Sales API
+  version: 1.0.0
+paths:
+  /products:
+    get:
+      summary: List all products
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductRead"
+    post:
+      summary: Create a new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductCreate"
+      responses:
+        "201":
+          description: Product created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductRead"
+
+  /orders:
+    post:
+      summary: Place a new order
+      description: Creates an order and decrements stock. Fails if insufficient stock.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderCreate"
+      responses:
+        "201":
+          description: Order successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderRead"
+        "400":
+          description: Insufficient stock or invalid input
+
+components:
+  schemas:
+    ProductCreate:
+      type: object
+      required: [name, price, stock]
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+        stock:
+          type: integer
+    ProductRead:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        price:
+          type: number
+        stock:
+          type: integer
+    OrderCreate:
+      type: object
+      required: [product_id, quantity]
+      properties:
+        product_id:
+          type: integer
+        quantity:
+          type: integer
+    OrderRead:
+      type: object
+      properties:
+        id:
+          type: integer
+        product_id:
+          type: integer
+        quantity:
+          type: integer
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time

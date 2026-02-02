@@ -1,0 +1,4 @@
+# Alles in einem Rutsch sichern:
+radon cc ./src -a > GitHub-Spec-Kit_cc_results.txt   # Komplexität (Struktur)
+radon mi ./src -s > GitHub-Spec-Kit_mi_results.txt   # Wartbarkeit (Gesamtnote)
+radon hal ./src   > GitHub-Spec-Kit_hal_results.txt  # Aufwand (Lesbarkeit)

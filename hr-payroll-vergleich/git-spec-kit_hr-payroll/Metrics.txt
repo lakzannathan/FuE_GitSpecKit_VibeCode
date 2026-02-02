@@ -1,0 +1,4 @@
+# Alles in einem Rutsch sichern:
+radon cc ./src -a > payroll_git_specKit_cc_results.txt   # Komplexität (Struktur)
+radon mi ./src -s > payroll_git_specKit_mi_results.txt   # Wartbarkeit (Gesamtnote)
+radon hal ./src   > payroll_git_specKit_hal_results.txt  # Aufwand (Lesbarkeit)

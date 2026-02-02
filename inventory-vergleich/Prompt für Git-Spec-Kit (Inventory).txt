@@ -1,0 +1,56 @@
+Prompt für Git-Spec-Kit (Inventory)
+
+### PROJEKT 2: INVENTORY SQL (Medium Complexity)
+# ZIEL: Zeigen, dass Spec-Kit Datenbank-Logik sauber kapselt.
+
+specify init --here
+
+# --------------------------------------------------------------------------------
+/speckit.constitution
+ Für dieses Projekt gelten folgende unumstößliche technische Gesetze:
+
+1.  **Persistence Layer:**
+    * Nutze ausschließlich `SQLModel` (SQLAlchemy + Pydantic).
+    * Datenbank: SQLite (`database.db`).
+    * Es ist verboten, Pydantic-Schemas (API) und Datenbank-Modelle (Tabellen) in derselben Klasse zu mischen. Erstelle getrennte Klassen (DTOs vs. Entities).
+
+2.  **Architecture & State:**
+    * Keine globalen Variablen für den State (z.B. keine globalen Listen).
+    * Nutze Dependency Injection (`Depends(get_session)`), um DB-Sessions in Routen zu injizieren.
+    * Datenbank-Logik gehört nicht in den Router, sondern in separate CRUD-Funktionen oder Services.
+
+3.  **Quality Assurance (Testing):**
+    * **Test-Driven Mindset:** Jedes neue Feature muss durch automatisierte Tests abgedeckt sein.
+    * **Isolation:** Tests dürfen die produktive Datenbank nicht verändern.
+    * Teste explizit auch die Edge Cases (z.B. Bestellung > Bestand).
+
+3.  **Refactoring:**
+    * Bestehender Code ("In-Memory") muss vollständig auf die neue Architektur migriert werden.
+
+# --------------------------------------------------------------------------------
+/speckit.specify
+Unser aktuelles MVP hat zwei kritische geschäftliche Schwächen, die wir beheben müssen:
+
+1.  **Datenverlust:** Wenn der Server neu startet, sind alle Produkte weg. Wir benötigen eine dauerhafte Speicherung, damit unser Inventar sicher ist.
+2.  **Verkaufsprozess:** Wir wollen Produkte nicht nur anzeigen, sondern verkaufen.
+    * Führe ein Konzept für "Bestellungen" ein.
+    * **Business Rule:** Ein Verkauf darf physikalisch nur stattfinden, wenn genügend Ware auf Lager ist. Das System muss technisch garantieren, dass wir niemals mehr verkaufen, als wir besitzen ("Überverkaufsschutz").
+    * Eine Bestellung gilt erst als abgeschlossen, wenn der Lagerbestand verbindlich reduziert wurde.
+
+Ziel: Ein robustes System für Produktverwaltung und Verkauf.
+# --------------------------------------------------------------------------------
+
+
+/speckit.plan
+Erstelle einen Migrationsplan.
+Analysiere die `main.py` und plane, welche neuen Dateien wir gemäß der Constitution benötigen (z.B. für DB-Config, Modelle, Schemas).
+Skizziere, wie du die "Business Rule" des Überverkaufs technisch sicherstellst (Transaktionen?).
+
+# --------------------------------------------------------------------------------
+
+/speckit.tasks
+
+
+/speckit.implement
+
+uvicorn src.main:app --reload

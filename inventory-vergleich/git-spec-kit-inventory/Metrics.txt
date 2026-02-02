@@ -1,0 +1,4 @@
+# Alles in einem Rutsch sichern:
+radon cc ./src -a > git_spec_kit_cc_results.txt   # Komplexität (Struktur)
+radon mi ./src -s > git_spec_kit_mi_results.txt   # Wartbarkeit (Gesamtnote)
+radon hal ./src   > git_spec_kit_hal_results.txt  # Aufwand (Lesbarkeit)

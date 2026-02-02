@@ -1,0 +1,103 @@
+specify init --here
+
+/speckit.constitution
+Rolle: Lead Compliance Architect für ein kritisches Legacy-System.
+
+1. **Datenschutz & DSGVO (Critical Constraint):**
+   - Grundsatz der "Datenminimierung": Sensible personenbezogene Daten (PII) wie IBAN, Steuer-ID oder Gehaltssummen dürfen NIEMALS im Klartext in Logs gespeichert werden.
+   - Das Audit-Log speichert ausschließlich Metadaten (Wer, Wann, Welche Aktion), niemals die Payload-Daten.
+
+2. **System-Integrität & Performance:**
+   - Die bestehende `legacy_engine.py` (Komplexität Rank D) ist extrem fragil. Sie darf NICHT refactored, modifiziert oder direkt importiert werden, um sie zu verändern.
+   - Das System leidet unter blockierendem Legacy-Code. Jede neue Funktionalität (wie Logging)
+   - Nutzung von `fastapi.BackgroundTasks` ist für Datenbank-Schreibvorgänge vorgeschrieben.
+
+3. **Qualitätssicherung (Testing):**
+   - Für jedes neue Feature müssen automatisierte Regressionstests erstellt werden.
+
+
+/speckit.specify
+Implementiere das Feature "DSGVO Audit Logging" basierend auf folgenden User Stories:
+
+**Story 1: Lückenlose Nachvergbarkeit**
+"Als Compliance Auditor möchte ich jeden lesenden Zugriff auf Mitarbeiterdaten in einer Datenbanktabelle protokolliert haben, damit ich im Falle eines Datenlecks nachvollziehen kann, wer wann welche Daten abgerufen hat."
+* **Akzeptanzkriterien:**
+    * Neues Datenbankmodell `AuditLog` (Felder: id, timestamp, employee_id, action, details).
+    * Integration in `GET /hr/employees/{id}` (Aktion: VIEW_DETAILS).
+    * Integration in `POST /hr/payroll/calculate/{id}` (Aktion: CALC_PAYROLL).
+
+**Story 2: Performance-Schutz**
+"Als System-Administrator möchte ich, dass das Schreiben der Logs die Antwortzeit der API nicht verlängert, damit das ohnehin langsame Legacy-System nicht noch träger wird."
+
+
+**Story 3: Schutz sensibler Daten**
+"Als Mitarbeiter möchte ich sicherstellen, dass meine IBAN und mein Gehalt nicht im Audit-Log im Klartext gespeichert werden, um meine Privatsphäre gemäß DSGVO zu schützen."
+* **Akzeptanzkriterien:**
+    * Das Feld `details` im Log darf keine PII (Personally Identifiable Information) enthalten.
+    * Es werden nur generische Infos geloggt.
+
+
+/speckit.plan
+/speckit.tasks
+/speckit.implement
+
+
+
+1. Die "Vibe-Code-Regression" (Der funktionale Zusammenbruch)
+Ab einem gewissen Komplexitätsgrad (hier: Legacy Code + ORM-Abhängigkeiten) führt unstrukturiertes Coding nicht nur zu schlechtem Code, sondern zerstört bestehende Funktionen.
+
+Beweis: Vibe Code lieferte ein leeres JSON {} zurück, weil es den session.commit() Lifecycle nicht verstand und das employee-Objekt "killte".
+
+Thesis-Fazit: "Ohne architektonisches Verständnis tendieren LLMs dazu, Seiteneffekte (Side-Effects) einzuführen, die zu kritischen Regressionen in der Hauptlogik führen."
+
+2. Compliance ist kein Zufall (Der Datenschutz-Sieg)
+Sicherheit und Datenschutz (DSGVO) entstehen nicht durch "hoffen", sondern durch harte Constraints (Constitution).
+
+Beweis (Vibe Code): Hatte keine Vorgaben und loggte die IBAN im Klartext. Ein massiver Datenschutzverstoß.
+
+Beweis (Spec-Kit): Durch die Constitution gezwungen, implementierte Spec-Kit automatisch eine Regex-Bereinigung (re.sub(..., '[REDACTED IBAN]')) und schrieb einen Test, der das Fehlen sensibler Daten beweist.
+
+Thesis-Fazit: "Spec-Kit beweist, dass Governance-Regeln (Constitution) effektiv verhindern können, dass KI-generierter Code Sicherheitslücken öffnet ('Security by Design')."
+
+3. Die "Async-Falle" (Die Grenzen der KI)
+Sowohl Vibe Code als auch Spec-Kit sind in die Falle getappt, synchronen Legacy-Code (legacy_calculate) in einer async def Route aufzurufen, was den Server blockiert.
+
+Die Nuance:
+
+Vibe Code hat das Problem verschlimmert, indem es zusätzlich synchron in die Datenbank schrieb.
+
+Spec-Kit hat das Problem eingegrenzt, indem es das Logging korrekt in BackgroundTasks auslagerte. Es hat den bestehenden Architekturfehler zwar nicht behoben (was riskant wäre ohne Erlaubnis), aber die neue Funktion performant implementiert.
+
+Thesis-Fazit: "Strukturierte Prompt-Frameworks garantieren die Qualität des neuen Codes (Non-blocking I/O), können aber tiefgreifende Altlasten-Probleme (Threading-Modell) ohne explizite Anweisung nicht 'magisch' beheben."
+
+4. QA-Gap: "Testen vs. Verifizieren"
+Es gibt einen massiven qualitativen Unterschied zwischen den Tests.
+
+Beweis:
+
+Vibe Code schrieb einen Test, der nur prüfte: "Ist ein Eintrag da?" (Happy Path). Er übersah, dass die API kaputt war.
+
+Spec-Kit schrieb Tests für Negativ-Szenarien: "Ist die IBAN nicht da?".
+
+Thesis-Fazit: "Vibe Code nutzt Tests zur Bestätigung (Confirmation Bias). Spec-Kit nutzt Tests zur Validierung von Anforderungen (Requirements Verification)."
+
+
+"Das Experiment zeigte deutlich die Grenzen autonomer Agenten auf. Während Spec-Kit in der Lage war, korrekte Sicherheitsarchitekturen zu planen (Privacy by Design), scheiterte die autonome Umsetzung an komplexen Abhängigkeiten der Test-Umgebung, was zu einer Endlosschleife (Infinite Loop) führte.
+
+Der notwendige manuelle Eingriff des Entwicklers führte anschließend zu einer Desynchronisation des Agenten-Zustands. Dies führt zu der Schlussfolgerung: Strukturierte Agenten ersetzen den Entwickler nicht, sondern verlagern seine Aufgabe. Anstatt Business-Logik zu schreiben (was Vibe Code fehlerhaft tat), wird der Entwickler zum 'Unblocker', der den Agenten aus technischen Sackgassen befreit.
+
+Entscheidend ist jedoch: Spec-Kit verhinderte durch sein Scheitern (Fail-Fast), dass unsicherer Code deployt wurde. Vibe Code hingegen ließ kritische Fehler lautlos passieren."
+
+
+Textbaustein für dein Fazit (Projekt 3)
+Du kannst dieses Kapitel nun sehr stark abschließen. Hier ist ein Vorschlag für die Zusammenfassung der Ergebnisse von Projekt 3:
+
+Ergebnis: Der Schutz der Systemintegrität durch Constraints
+
+Im dritten Experiment (Legacy Integration) zeigte sich der signifikanteste qualitative Unterschied zwischen den Ansätzen.
+
+1. Ad-hoc Prompting (Vibe Code): Führte zu einer funktionalen Regression. Zwar wurde der Logging-Code syntaktisch korrekt eingefügt, jedoch ignorierte das Modell die Seiteneffekte des ORM-Zyklus (session.commit()). Dies führte dazu, dass der API-Endpunkt zwar einen HTTP 200 Status sendete, aber keine Nutzdaten mehr lieferte (Leeres JSON). Das System war nach der Bearbeitung effektiv defekt.
+
+2. Structured Prompting (Spec-Kit): Durch die in der Constitution verankerte Vorgabe, BackgroundTasks zu nutzen ("Architectural Constraint"), wurde die Logik entkoppelt. Das Ergebnis (siehe Abb. X) zeigt, dass der API-Endpunkt weiterhin die vollständigen Mitarbeiterdaten liefert.
+
+Schlussfolgerung: Strukturierte Frameworks wirken als "Sicherheitsnetz". Selbst wenn das Modell die ORM-Problematik nicht explizit versteht, zwingt die Architektur-Vorgabe (Asynchronität) es zu einer Implementierung, die destruktive Seiteneffekte (wie den "Zombie-Object Bug") technisch unmöglich macht.

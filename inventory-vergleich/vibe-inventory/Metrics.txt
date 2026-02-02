@@ -1,0 +1,4 @@
+# Alles in einem Rutsch sichern:
+radon cc ./src -a > Vibe_cc_results.txt   # Komplexität (Struktur)
+radon mi ./src -s > Vibe_mi_results.txt   # Wartbarkeit (Gesamtnote)
+radon hal ./src   > Vibe_hal_results.txt  # Aufwand (Lesbarkeit)

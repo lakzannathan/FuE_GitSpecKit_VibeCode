@@ -1,0 +1,39 @@
+Vibe Prompt
+
+Ich habe hier ein Gehaltsabrechnungs-System (Payroll).
+Wir müssen dringend ein DSGVO-konformes "Audit Log" einführen.
+
+Aufgabe:
+Bitte implementiere eine Logging-Funktion, die jeden Lese-Zugriff auf Mitarbeiterdaten speichert.
+
+Anforderungen:
+1. Datenbank: Erstelle eine neue Tabelle `AuditLog` (id, timestamp, employee_id, action, details).
+2. Integration:
+   - Wenn `GET /hr/employees/{id}` aufgerufen wird, erstelle einen Log-Eintrag "VIEW_DETAILS".
+   - Wenn `POST /hr/payroll/calculate/{id}` aufgerufen wird, erstelle einen Log-Eintrag "CALC_PAYROLL".
+   - Im Feld `details` sollen nützliche Infos stehen (z.B. welche Daten abgerufen wurden).
+3. Testing:
+   - Schreibe einen Test, der prüft, ob das Logging funktioniert.
+4. Performance: Das System ist alt und langsam. Mach die Implementierung so einfach wie möglich.
+
+
+
+"Die KI führt 'Side-Effects' (Logging) ein, die den State der Hauptlogik (Employee-Objekt) korrumpieren (Stichwort: Object Expiration). Ohne tieferes Verständnis des ORM-Lifecycles führt Vibe Coding zu funktionalen Regressionen."
+
+Thesis-Argument: "Vibe Coding verwendet moderne Syntax (async), ohne die Implikationen für Legacy-Code zu verstehen. Dies führt zu 'Event Loop Blocking' und macht das System unter Last unbenutzbar."
+
+Was NICHT getestet wird:
+
+Regression: Funktioniert der Endpunkt noch? (Der Test prüft nur status_code == 200, merkt aber nicht, dass der Body {} leer ist, weil er nicht den Inhalt des response prüft, sondern nur die Logs!).
+
+Performance: Blockiert der Aufruf?
+
+Datenschutz: Steht vielleicht doch eine IBAN drin? (Der Test prüft nur auf das Vorhandensein eines Strings, nicht auf das Fehlen sensibler Daten).
+
+Systemintegrität zerstört: Der API-Endpunkt liefert keine Daten mehr zurück (Zombie-Objekt Bug).
+
+Performance zerstört: Der Server blockiert komplett (Async-Trap).
+
+Tests sind nutzlos: Die generierten Tests sind "grün", obwohl die Anwendung kaputt ist (False Positive).
+
+"Vibe Code hat versucht, ein Feature (Logging) hinzuzufügen, und dabei die Kern-Funktionalität (Daten-Rückgabe) zerstört (Regression), weil es die Seiteneffekte des ORM (Object Relational Mapping) nicht verstanden hat."

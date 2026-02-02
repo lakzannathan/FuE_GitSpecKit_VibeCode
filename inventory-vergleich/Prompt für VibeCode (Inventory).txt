@@ -1,0 +1,13 @@
+Hier ist mein aktueller Code für eine einfache Produkt-API (main.py).
+Bitte erweitere diesen Code wie folgt:
+
+1. Datenbank: Ersetze die In-Memory Liste `fake_product_db` durch eine echte SQLite Datenbank. Nutze dafür die Library "SQLModel".
+2. Orders: Füge eine neue Funktionalität hinzu, um Produkte zu bestellen.
+   - Erstelle einen Endpunkt `POST /orders`.
+   - Der User sendet `product_id` und `quantity`.
+   - Das System muss prüfen, ob genug 'stock' (Lagerbestand) da ist.
+   - Wenn ja: Reduziere den Stock des Produkts und speichere die Order in der Datenbank.
+   - Wenn nein: Wirf einen HTTP 400 Fehler.
+3. Tests: Schreibe bitte auch automatisierte Tests, um sicherzustellen, dass die Bestandsprüfung korrekt funktioniert und man nicht mehr bestellen kann, als da ist.
+
+Bitte schreibe den Code so um, dass alles funktioniert.
