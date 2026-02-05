@@ -1,0 +1,10 @@
+Projekt,Coverage,Density,Mutation
+baseprojekt-inventory,N/A,N/A,N/A
+baseprojekt_payroll,N/A,N/A,N/A
+fast-api-rate-limiter,N/A,N/A,N/A
+git-spec-kit-inventory,95,N/A,N/A
+git-spec-kit-rate-limiter,97,N/A,N/A
+git-spec-kit_hr-payroll,72,N/A,N/A
+vibe-inventory,68,N/A,N/A
+vibeCode-rate-limiter,94,N/A,N/A
+vibe_hr-payroll,70,N/A,N/A

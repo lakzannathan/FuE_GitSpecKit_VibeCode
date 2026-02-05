@@ -1,0 +1,99 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.13.2, pytest-9.0.2, pluggy-1.6.0
+rootdir: C:\Users\lakza\OneDrive - FH Muenster\Desktop\FH\Master\Forschungs-u.Entwicklungsprojekt\FinalerVergleich\inventory-vergleich\git-spec-kit-inventory
+configfile: pytest.ini
+plugins: anyio-4.12.1, cov-7.0.0
+collected 8 items
+
+tests\integration\test_orders_api.py ..                                  [ 25%]
+tests\integration\test_products_api.py ..                                [ 50%]
+tests\unit\test_inventory_service.py ..                                  [ 75%]
+.\.venv\Scripts\python.exe : C:\Users\lakza\AppData\Local\Progr
+ams\Python\Python313\Lib\ast.py:54: ResourceWarning: unclosed 
+database in <sqlite3.Connection object at 0x0000022468D444F0>
+In Zeile:1 Zeichen:1
++ .\.venv\Scripts\python.exe -m pytest --cov=src tests/ 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Users\lakza\.. 
+   .00022468D444F0>:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object 
+allocation traceback
+C:\Users\lakza\AppData\Local\Programs\Python\Python313\Lib\ast.
+py:54: ResourceWarning: unclosed database in 
+<sqlite3.Connection object at 0x0000022468DB0040>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object 
+allocation traceback
+C:\Users\lakza\OneDrive - FH Muenster\Desktop\FH\Master\Forschu
+ngs-u.Entwicklungsprojekt\FinalerVergleich\inventory-vergleich\
+git-spec-kit-inventory\.venv\Lib\site-packages\_pytest\unraisab
+leexception.py:33: ResourceWarning: unclosed database in 
+<sqlite3.Connection object at 0x0000022468C65300>
+  gc.collect()
+ResourceWarning: Enable tracemalloc to get the object 
+allocation traceback
+C:\Users\lakza\OneDrive - FH Muenster\Desktop\FH\Master\Forschu
+ngs-u.Entwicklungsprojekt\FinalerVergleich\inventory-vergleich\
+git-spec-kit-inventory\.venv\Lib\site-packages\_pytest\unraisab
+leexception.py:33: ResourceWarning: unclosed database in 
+<sqlite3.Connection object at 0x0000022468CCAB60>
+  gc.collect()
+ResourceWarning: Enable tracemalloc to get the object 
+allocation traceback
+C:\Users\lakza\OneDrive - FH Muenster\Desktop\FH\Master\Forschu
+ngs-u.Entwicklungsprojekt\FinalerVergleich\inventory-vergleich\
+git-spec-kit-inventory\.venv\Lib\site-packages\_pytest\unraisab
+leexception.py:33: ResourceWarning: unclosed database in 
+<sqlite3.Connection object at 0x0000022468D46D40>
+  gc.collect()
+ResourceWarning: Enable tracemalloc to get the object 
+allocation traceback
+tests\unit\test_sales_service.py ..                                      [100%]
+
+============================== warnings summary ===============================
+tests/integration/test_orders_api.py::test_create_order_api
+tests/unit/test_sales_service.py::test_create_order_success
+  C:\Users\lakza\OneDrive - FH Muenster\Desktop\FH\Master\Forschungs-u.Entwicklungsprojekt\FinalerVergleich\inventory-vergleich\git-spec-kit-inventory\.venv\Lib\site-packages\pydantic\fields.py:747: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return fac()
+
+tests/unit/test_inventory_service.py::test_list_products
+  C:\Users\lakza\OneDrive - FH Muenster\Desktop\FH\Master\Forschungs-u.Entwicklungsprojekt\FinalerVergleich\inventory-vergleich\git-spec-kit-inventory\.venv\Lib\site-packages\sqlalchemy\sql\type_api.py:2335: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x0000022468D45E40>
+    def to_instance(
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/unit/test_inventory_service.py::test_list_products
+  C:\Users\lakza\OneDrive - FH Muenster\Desktop\FH\Master\Forschungs-u.Entwicklungsprojekt\FinalerVergleich\inventory-vergleich\git-spec-kit-inventory\.venv\Lib\site-packages\sqlalchemy\sql\type_api.py:2335: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x0000022468D457B0>
+    def to_instance(
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/unit/test_inventory_service.py::test_list_products
+  C:\Users\lakza\OneDrive - FH Muenster\Desktop\FH\Master\Forschungs-u.Entwicklungsprojekt\FinalerVergleich\inventory-vergleich\git-spec-kit-inventory\.venv\Lib\site-packages\sqlalchemy\sql\type_api.py:2335: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x0000022468D45D50>
+    def to_instance(
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.13.2-final-0 _______________
+
+Name                        Stmts   Miss  Cover
+-----------------------------------------------
+src\database.py                11      2    82%
+src\main.py                    14      3    79%
+src\models\order.py             9      0   100%
+src\models\product.py           7      0   100%
+src\routers\orders.py          12      0   100%
+src\routers\products.py        14      0   100%
+src\schemas\order.py           11      0   100%
+src\schemas\product.py         10      0   100%
+src\services\inventory.py      16      0   100%
+src\services\sales.py          21      1    95%
+-----------------------------------------------
+TOTAL                         125      6    95%
+======================== 8 passed, 5 warnings in 0.37s ========================
+

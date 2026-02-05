@@ -1,0 +1,18 @@
+﻿.\.venv\Scripts\python.exe : ERROR: file or directory not 
+found: tests/
+In Zeile:1 Zeichen:1
++ .\.venv\Scripts\python.exe -m pytest --cov=src tests/ 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ERROR: file or .. 
+   .t found: tests/:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+============================= test session starts =============================
+platform win32 -- Python 3.13.2, pytest-9.0.2, pluggy-1.6.0
+rootdir: C:\Users\lakza\OneDrive - FH Muenster\Desktop\FH\Master\Forschungs-u.Entwicklungsprojekt\FinalerVergleich\hr-payroll-vergleich\baseprojekt_payroll
+plugins: anyio-4.12.1, cov-7.0.0
+collected 0 items
+
+============================ no tests ran in 0.08s ============================
+
+

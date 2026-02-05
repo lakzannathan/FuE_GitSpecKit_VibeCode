@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+slowapi
+httpx
+pytest
+pytest-cov
+mutmut
+requests

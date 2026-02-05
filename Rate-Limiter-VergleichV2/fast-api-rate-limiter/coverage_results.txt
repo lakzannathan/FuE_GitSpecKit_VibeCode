@@ -1,0 +1,12 @@
+﻿.\.venv\Scripts\python.exe : C:\Users\lakza\OneDrive - FH Muens
+ter\Desktop\FH\Master\Forschungs-u.Entwicklungsprojekt\FinalerV
+ergleich\Rate-Limiter-VergleichV2\fast-api-rate-limiter\.venv\S
+cripts\python.exe: No module named pytest
+In Zeile:1 Zeichen:1
++ .\.venv\Scripts\python.exe -m pytest --cov=src tests/ 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Users\lakza\.. 
+   .le named pytest:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+

@@ -1,0 +1,37 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.13.2, pytest-9.0.2, pluggy-1.6.0
+rootdir: C:\Users\lakza\OneDrive - FH Muenster\Desktop\FH\Master\Forschungs-u.Entwicklungsprojekt\FinalerVergleich\hr-payroll-vergleich\git-spec-kit_hr-payroll
+configfile: pytest.ini
+plugins: anyio-4.12.1, cov-7.0.0
+collected 7 items
+
+tests\integration\test_audit_logging.py ..                               [ 28%]
+tests\integration\test_audit_privacy.py ..                               [ 57%]
+tests\performance\test_async_logging.py .                                [ 71%]
+tests\unit\test_pii_stripping.py ..                                      [100%]
+
+============================== warnings summary ===============================
+tests/integration/test_audit_logging.py::test_view_details_logging
+tests/integration/test_audit_logging.py::test_calc_payroll_logging
+tests/integration/test_audit_privacy.py::test_audit_log_no_pii
+tests/integration/test_audit_privacy.py::test_audit_log_payroll_no_pii
+tests/performance/test_async_logging.py::test_async_logging_performance
+tests/unit/test_pii_stripping.py::test_pii_stripping_logic
+  C:\Users\lakza\OneDrive - FH Muenster\Desktop\FH\Master\Forschungs-u.Entwicklungsprojekt\FinalerVergleich\hr-payroll-vergleich\git-spec-kit_hr-payroll\.venv\Lib\site-packages\pydantic\fields.py:747: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return fac()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.13.2-final-0 _______________
+
+Name                   Stmts   Miss  Cover
+------------------------------------------
+src\database.py           11      4    64%
+src\legacy_engine.py      62     26    58%
+src\main.py               21      8    62%
+src\models.py             24      0   100%
+src\routers\hr.py         38      6    84%
+------------------------------------------
+TOTAL                    156     44    72%
+======================== 7 passed, 6 warnings in 3.42s ========================
+
